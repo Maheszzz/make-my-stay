@@ -976,6 +976,9 @@
   .bg-emerald-600 {
     background-color: var(--color-emerald-600);
   }
+  .bg-emerald-900 {
+    background-color: var(--color-emerald-900);
+  }
   .bg-orange-50 {
     background-color: var(--color-orange-50);
   }
@@ -1063,6 +1066,9 @@
   }
   .bg-\[url\(\'https\:\/\/grainy-gradients\.vercel\.app\/noise\.svg\'\)\] {
     background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  }
+  .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1486406146926-c627a92ad1ab\?auto\=format\&fit\=crop\&q\=80\'\)\] {
+    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80');
   }
   .from-black\/60 {
     --tw-gradient-from: color-mix(in srgb, #000 60%, transparent);
@@ -1189,9 +1195,15 @@
     --tw-gradient-to: transparent;
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
+  .bg-cover {
+    background-size: cover;
+  }
   .bg-clip-text {
     -webkit-background-clip: text;
             background-clip: text;
+  }
+  .bg-center {
+    background-position: center;
   }
   .fill-current {
     fill: currentcolor;
@@ -1287,6 +1299,9 @@
   .pt-16 {
     padding-top: calc(var(--spacing) * 16);
   }
+  .pt-24 {
+    padding-top: calc(var(--spacing) * 24);
+  }
   .pt-32 {
     padding-top: calc(var(--spacing) * 32);
   }
@@ -1301,6 +1316,9 @@
   }
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
+  }
+  .pb-12 {
+    padding-bottom: calc(var(--spacing) * 12);
   }
   .pb-20 {
     padding-bottom: calc(var(--spacing) * 20);
@@ -1511,6 +1529,9 @@
   }
   .accent-blue-600 {
     accent-color: var(--color-blue-600);
+  }
+  .opacity-10 {
+    opacity: 10%;
   }
   .opacity-20 {
     opacity: 20%;

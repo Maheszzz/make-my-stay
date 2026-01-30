@@ -25,20 +25,20 @@ export function Navbar() {
                         <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg">
                             <Building2 className="w-6 h-6 text-white" />
                         </div>
-                        <span className="text-xl font-bold tracking-tight">
+                        <Link href="/" className="text-xl font-bold tracking-tight">
                             MakeMyStay<span className="text-emerald-600">.ai</span>
-                        </span>
+                        </Link>
                     </div>
 
                     <div className="hidden md:flex items-center space-x-8">
                         {navigationLinks.map((item) => (
-                            <a
+                            <Link
                                 key={item}
-                                href={`#${item.toLowerCase().replace(' ', '-')}`}
+                                href={`/#${item.toLowerCase().replace(' ', '-')}`}
                                 className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
                             >
                                 {item}
-                            </a>
+                            </Link>
                         ))}
                         <Link href="/contact-us">
                             <Button variant="dark" className="px-5 py-2.5 text-sm">Contact Us</Button>
@@ -57,14 +57,14 @@ export function Navbar() {
                 <div className="absolute top-full left-0 w-full bg-white border-b border-slate-100 p-4 md:hidden shadow-xl animate-in fade-in slide-in-from-top-5">
                     <div className="flex flex-col space-y-4">
                         {navigationLinks.map((item) => (
-                            <a
+                            <Link
                                 key={item}
-                                href={`#${item.toLowerCase().replace(' ', '-')}`}
+                                href={`/#${item.toLowerCase().replace(' ', '-')}`}
                                 className="text-base font-medium text-slate-600 py-2"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {item}
-                            </a>
+                            </Link>
                         ))}
                         <Link href="/contact-us">
                             <Button variant="dark" className="w-full">Contact Us</Button>
