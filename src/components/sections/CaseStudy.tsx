@@ -3,7 +3,8 @@ import { caseStudyStats } from '@/data/content';
 
 export function CaseStudy() {
     return (
-        <section id="case-study" className="py-24 bg-white">
+        <section id="case-study" className="py-24 bg-slate-900 relative overflow-hidden isolate">
+            {/* Background Effects */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row gap-16 items-start">
                     <div className="md:w-1/2">

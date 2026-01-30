@@ -1,8 +1,5 @@
-import { ArrowRight, Play } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { heroStats } from '@/data/content';
 import { SmartSearchBar } from '@/components/modules/search/SmartSearchBar';
-import { Zap } from 'lucide-react';
+
 
 interface HeroProps {
     category: 'buy' | 'rent';

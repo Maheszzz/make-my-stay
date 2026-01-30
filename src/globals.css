@@ -1,7 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-    --color-mint-500: oklch(0.72 0.11 178);
+    --color-brand-teal: #00D4AA;
+    --color-brand-navy: #1A1D2E;
+    --color-brand-dark: #0f111a;
+    --color-accent-purple: #667eea;
+    --color-accent-coral: #f5576c;
+
+    /* Semantic mapping */
+    --color-primary: var(--color-brand-teal);
+    --color-secondary: var(--color-brand-navy);
+    --color-background: #F8FAFC;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-sans: 'Outfit', sans-serif;
+
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --shadow-glow: 0 0 20px rgba(0, 212, 170, 0.3);
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
-/* Custom Utilities if needed, mostly standard Tailwind is fine */
+@layer utilities {
+    .glass-panel {
+        @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-glass;
+    }
+
+    .glass-panel-dark {
+        @apply bg-[#1A1D2E]/80 backdrop-blur-md border border-white/10 shadow-glass;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-teal to-accent-purple;
+    }
+
+    .text-gradient-coral {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-purple to-accent-coral;
+    }
+}
+
+body {
+    @apply font-sans bg-slate-50 text-slate-900;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-heading;
+}

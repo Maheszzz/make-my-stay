@@ -15,7 +15,7 @@ export function Solution() {
     }, []);
 
     return (
-        <section id="solution" className="py-24 bg-white overflow-hidden">
+        <section id="solution" className="py-24 bg-white relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <span className="text-emerald-600 font-semibold tracking-wide uppercase text-sm">Our Solution</span>
@@ -30,8 +30,8 @@ export function Solution() {
                                 key={idx}
                                 onClick={() => setActiveFeature(idx)}
                                 className={`text-left p-6 rounded-2xl transition-all duration-300 border ${activeFeature === idx
-                                        ? 'bg-slate-50 border-slate-200 shadow-md scale-105'
-                                        : 'bg-white border-transparent hover:bg-slate-50'
+                                    ? 'bg-slate-50 border-slate-200 shadow-md scale-105'
+                                    : 'bg-white border-transparent hover:bg-slate-50'
                                     }`}
                             >
                                 <h3 className={`text-lg font-bold mb-1 ${activeFeature === idx ? 'text-slate-900' : 'text-slate-500'}`}>

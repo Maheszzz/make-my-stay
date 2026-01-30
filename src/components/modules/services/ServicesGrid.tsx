@@ -1,65 +1,66 @@
-import { Home, Key, Building2, GraduationCap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Building2, Wallet, Users, BarChart3 } from 'lucide-react';
+
+const services = [
+    {
+        title: "Property Management",
+        desc: "End-to-end management for premium assets",
+        icon: Building2,
+        color: "text-blue-400"
+    },
+    {
+        title: "Revenue Optimization",
+        desc: "AI-driven pricing to maximize yields",
+        icon: Wallet,
+        color: "text-brand-teal"
+    },
+    {
+        title: "Tenant Acquisition",
+        desc: "Automated leasing and background checks",
+        icon: Users,
+        color: "text-accent-purple"
+    },
+    {
+        title: "Market Intelligence",
+        desc: "Real-time data on rental trends",
+        icon: BarChart3,
+        color: "text-accent-coral"
+    }
+];
 
 export function ServicesGrid() {
-    const services = [
-        { label: "Buy", icon: Home, color: "bg-emerald-100 text-emerald-600", col: "col-span-1", row: "row-span-2" },
-        { label: "Rent", icon: Key, color: "bg-blue-100 text-blue-600", col: "col-span-1", row: "row-span-1" },
-        { label: "Plots", icon: Building2, color: "bg-purple-100 text-purple-600", col: "col-span-1", row: "row-span-1" },
-        { label: "Student Housing", icon: GraduationCap, color: "bg-orange-100 text-orange-600", col: "col-span-2", row: "row-span-1" },
-    ];
-
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto h-full min-h-[400px]">
-            {/* Custom Bento Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto h-full items-stretch">
+            {services.map((service, index) => (
+                <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="relative group bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                >
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent to-slate-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-            {/* Buy Property - Tall Card */}
-            <div className="md:row-span-2 bg-gradient-to-br from-white to-emerald-50/50 rounded-3xl p-8 border border-slate-100 flex flex-col justify-between hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 cursor-pointer group hover:border-emerald-200 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-32 bg-emerald-100/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-100/40 transition-colors"></div>
+                    {/* Gradient Border Effect */}
+                    <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-brand-teal to-accent-purple transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
 
-                <div className="relative z-10 w-full mb-8">
-                    <div className="bg-white w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                        <Home className="w-7 h-7" />
+                    <div className="relative z-10 flex flex-col h-full justify-between">
+                        <div>
+                            <div className={`w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-white flex items-center justify-center mb-6 shadow-sm group-hover:shadow-md transition-all`}>
+                                <service.icon className={`w-7 h-7 ${service.color}`} />
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-navy transition-colors">{service.title}</h3>
+                            <p className="text-slate-500 group-hover:text-slate-600 leading-relaxed text-sm">
+                                {service.desc}
+                            </p>
+                        </div>
+
+                        <div className="pt-6 mt-4 border-t border-slate-100 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <span className="flex items-center text-sm font-bold text-brand-teal cursor-pointer">
+                                Learn More <ArrowRight className="w-4 h-4 ml-1" />
+                            </span>
+                        </div>
                     </div>
-                </div>
-
-                <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Buy Property</h3>
-                    <p className="text-base text-slate-500 mt-3 leading-relaxed">Discover your perfect property with our AI-powered valuation tools and immersive virtual tours.</p>
-                </div>
-            </div>
-
-            {/* Rent - Small Card */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 cursor-pointer group hover:border-blue-200 hover:-translate-y-1">
-                <div className="bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Key className="w-6 h-6" />
-                </div>
-                <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">Rent</h3>
-                    <p className="text-sm text-slate-500">Zero brokerage, seamless move-ins</p>
-                </div>
-            </div>
-
-            {/* Plots - Small Card */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-lg hover:shadow-purple-900/5 transition-all duration-300 cursor-pointer group hover:border-purple-200 hover:-translate-y-1">
-                <div className="bg-purple-50 w-12 h-12 rounded-2xl flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Building2 className="w-6 h-6" />
-                </div>
-                <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">Plots</h3>
-                    <p className="text-sm text-slate-500">Verified land with clear titles</p>
-                </div>
-            </div>
-
-            {/* Student Housing - Wide Card */}
-            <div className="md:col-span-2 bg-white rounded-3xl p-6 border border-slate-100 flex items-center justify-between hover:shadow-lg hover:shadow-orange-900/5 transition-all duration-300 cursor-pointer group hover:border-orange-200 hover:-translate-y-1">
-                <div className="max-w-[60%]">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Student Housing</h3>
-                    <p className="text-sm text-slate-500 leading-relaxed">Safe, affordable, and fully furnished stays near top universities.</p>
-                </div>
-                <div className="bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center text-orange-600 group-hover:rotate-12 transition-transform duration-300">
-                    <GraduationCap className="w-8 h-8" />
-                </div>
-            </div>
+                </motion.div>
+            ))}
         </div>
     );
 }

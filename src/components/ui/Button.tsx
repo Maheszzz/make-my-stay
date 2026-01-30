@@ -9,10 +9,12 @@ export function Button({ children, variant = 'primary', className = '', icon: Ic
     const baseStyles = "px-6 py-3 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2";
 
     const variants = {
-        primary: "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-200 hover:shadow-emerald-300 hover:scale-[1.02]",
-        secondary: "bg-white text-slate-700 border border-slate-200 hover:border-emerald-200 hover:bg-emerald-50/50 shadow-sm",
-        outline: "bg-transparent border-2 border-white/30 text-white hover:bg-white/10",
-        dark: "bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-200"
+        primary: "bg-gradient-to-r from-brand-teal to-[#00bda0] text-brand-navy font-semibold shadow-glow hover:shadow-[0_0_25px_rgba(0,212,170,0.5)] active:scale-95",
+        secondary: "bg-white text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm",
+        outline: "border-2 border-slate-200 text-slate-600 hover:border-emerald-500 hover:text-emerald-600",
+        ghost: "text-slate-600 hover:bg-slate-100",
+        dark: "bg-brand-navy text-white hover:bg-brand-dark shadow-glass border border-white/10",
+        link: "text-emerald-600 hover:underline p-0 h-auto"
     };
 
     return (
