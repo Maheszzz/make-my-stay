@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+    --font-inter: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: var(--font-inter);
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
 }
 
-@layer utilities {
-    .clip-text-gradient {
-        @apply bg-clip-text text-transparent;
-    }
+@utility clip-text-gradient {
+    @apply bg-clip-text text-transparent;
 }
