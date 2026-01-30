@@ -40,7 +40,9 @@ export function Navbar() {
                                 {item}
                             </a>
                         ))}
-                        <Button variant="dark" className="px-5 py-2.5 text-sm">Get Started</Button>
+                        <Link href="/contact-us">
+                            <Button variant="dark" className="px-5 py-2.5 text-sm">Contact Us</Button>
+                        </Link>
                     </div>
 
                     <div className="md:hidden">
@@ -64,7 +66,9 @@ export function Navbar() {
                                 {item}
                             </a>
                         ))}
-                        <Button variant="dark" className="w-full">Get Started</Button>
+                        <Link href="/contact-us">
+                            <Button variant="dark" className="w-full">Contact Us</Button>
+                        </Link>
                     </div>
                 </div>
             )}

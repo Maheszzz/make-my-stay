@@ -4,7 +4,14 @@ import { heroStats } from '@/data/content';
 import { SmartSearchBar } from '@/components/modules/search/SmartSearchBar';
 import { Zap } from 'lucide-react';
 
-export function Hero() {
+interface HeroProps {
+    category: 'buy' | 'rent';
+    setCategory: (category: 'buy' | 'rent') => void;
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+}
+
+export function Hero({ category, setCategory, searchQuery, setSearchQuery }: HeroProps) {
     return (
         <section id="home" className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-white">
             {/* Background Gradients */}
@@ -26,7 +33,12 @@ export function Hero() {
                         </p>
 
                         <div className="mb-10">
-                            <SmartSearchBar />
+                            <SmartSearchBar
+                                category={category}
+                                setCategory={setCategory}
+                                searchQuery={searchQuery}
+                                setSearchQuery={setSearchQuery}
+                            />
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-4 mb-8">

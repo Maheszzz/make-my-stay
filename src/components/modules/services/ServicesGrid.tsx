@@ -9,46 +9,55 @@ export function ServicesGrid() {
     ];
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 h-full min-h-[300px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto h-full min-h-[400px]">
             {/* Custom Bento Layout */}
-            <div className="col-span-2 lg:col-span-1 row-span-2 bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-xl transition-shadow cursor-pointer group hover:border-emerald-100 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-32 bg-emerald-50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-100 transition-colors"></div>
-                <div className="bg-emerald-100 w-12 h-12 rounded-2xl flex items-center justify-center text-emerald-600 mb-4 z-10">
-                    <Home className="w-6 h-6" />
+
+            {/* Buy Property - Tall Card */}
+            <div className="md:row-span-2 bg-gradient-to-br from-white to-emerald-50/50 rounded-3xl p-8 border border-slate-100 flex flex-col justify-between hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 cursor-pointer group hover:border-emerald-200 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-32 bg-emerald-100/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-100/40 transition-colors"></div>
+
+                <div className="relative z-10 w-full mb-8">
+                    <div className="bg-white w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                        <Home className="w-7 h-7" />
+                    </div>
                 </div>
-                <div className="z-10">
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Buy Property</h3>
-                    <p className="text-sm text-slate-500 mt-2">Find your dream home with AI valuation.</p>
+
+                <div className="relative z-10">
+                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Buy Property</h3>
+                    <p className="text-base text-slate-500 mt-3 leading-relaxed">Discover your perfect property with our AI-powered valuation tools and immersive virtual tours.</p>
                 </div>
             </div>
 
-            <div className="col-span-1 bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-lg transition-shadow cursor-pointer group hover:border-blue-100">
-                <div className="bg-blue-100 w-10 h-10 rounded-xl flex items-center justify-center text-blue-600 mb-2">
-                    <Key className="w-5 h-5" />
+            {/* Rent - Small Card */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 cursor-pointer group hover:border-blue-200 hover:-translate-y-1">
+                <div className="bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Key className="w-6 h-6" />
                 </div>
                 <div>
-                    <h3 className="text-lg font-bold text-slate-900">Rent</h3>
-                    <p className="text-xs text-slate-500">Zero brokerage options</p>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">Rent</h3>
+                    <p className="text-sm text-slate-500">Zero brokerage, seamless move-ins</p>
                 </div>
             </div>
 
-            <div className="col-span-1 bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-lg transition-shadow cursor-pointer group hover:border-purple-100">
-                <div className="bg-purple-100 w-10 h-10 rounded-xl flex items-center justify-center text-purple-600 mb-2">
-                    <Building2 className="w-5 h-5" />
+            {/* Plots - Small Card */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between hover:shadow-lg hover:shadow-purple-900/5 transition-all duration-300 cursor-pointer group hover:border-purple-200 hover:-translate-y-1">
+                <div className="bg-purple-50 w-12 h-12 rounded-2xl flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Building2 className="w-6 h-6" />
                 </div>
                 <div>
-                    <h3 className="text-lg font-bold text-slate-900">Plots</h3>
-                    <p className="text-xs text-slate-500">Verified land details</p>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">Plots</h3>
+                    <p className="text-sm text-slate-500">Verified land with clear titles</p>
                 </div>
             </div>
 
-            <div className="col-span-2 bg-white rounded-3xl p-6 border border-slate-100 flex items-center justify-between hover:shadow-lg transition-shadow cursor-pointer group hover:border-orange-100">
-                <div>
-                    <h3 className="text-lg font-bold text-slate-900">Student Housing</h3>
-                    <p className="text-xs text-slate-500 mt-1">Near universities & colleges</p>
+            {/* Student Housing - Wide Card */}
+            <div className="md:col-span-2 bg-white rounded-3xl p-6 border border-slate-100 flex items-center justify-between hover:shadow-lg hover:shadow-orange-900/5 transition-all duration-300 cursor-pointer group hover:border-orange-200 hover:-translate-y-1">
+                <div className="max-w-[60%]">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Student Housing</h3>
+                    <p className="text-sm text-slate-500 leading-relaxed">Safe, affordable, and fully furnished stays near top universities.</p>
                 </div>
-                <div className="bg-orange-100 w-12 h-12 rounded-2xl flex items-center justify-center text-orange-600">
-                    <GraduationCap className="w-6 h-6" />
+                <div className="bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center text-orange-600 group-hover:rotate-12 transition-transform duration-300">
+                    <GraduationCap className="w-8 h-8" />
                 </div>
             </div>
         </div>

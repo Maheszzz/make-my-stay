@@ -4,7 +4,7 @@ import {
 } from 'lucide-react';
 
 export const navigationLinks = [
-    'Home', 'Problem', 'Solution', 'Market', 'Case Study'
+    'Home', 'Problem', 'Solution', 'Services', 'About Us'
 ];
 
 export const heroStats = [

@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from 'react';
+
 import { Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
-export function SmartSearchBar() {
-    const [activeTab, setActiveTab] = useState<'buy' | 'rent'>('buy');
+interface SmartSearchBarProps {
+    category: 'buy' | 'rent';
+    setCategory: (category: 'buy' | 'rent') => void;
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+}
+
+export function SmartSearchBar({ category, setCategory, searchQuery, setSearchQuery }: SmartSearchBarProps) {
 
     return (
         <div className="bg-white/95 backdrop-blur-sm p-2 rounded-3xl shadow-2xl border border-white/20 max-w-2xl w-full">
@@ -16,8 +22,8 @@ export function SmartSearchBar() {
                 ].map((tab) => (
                     <button
                         key={tab.id}
-                        onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex-1 py-2 px-4 rounded-xl text-sm font-semibold transition-all ${activeTab === tab.id
+                        onClick={() => setCategory(tab.id as 'buy' | 'rent')}
+                        className={`flex-1 py-2 px-4 rounded-xl text-sm font-semibold transition-all ${category === tab.id
                             ? 'bg-slate-900 text-white shadow-md'
                             : 'bg-transparent text-slate-500 hover:bg-slate-50'
                             }`}
@@ -31,6 +37,8 @@ export function SmartSearchBar() {
                 <MapPin className="absolute left-4 w-5 h-5 text-emerald-500" />
                 <input
                     type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search 3BHK in Koramangala near Wipro..."
                     className="w-full pl-12 pr-32 py-4 bg-slate-50 border-2 border-transparent focus:border-emerald-100 rounded-2xl text-slate-900 placeholder:text-slate-400 outline-none transition-all font-medium"
                 />
