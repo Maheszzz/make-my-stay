@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Hash, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -135,7 +135,7 @@ export function PropertyGrid({ category, searchQuery }: PropertyGridProps) {
                         filteredProperties.map((prop, idx) => {
                             const slug = prop.title.toLowerCase().replace(/ /g, '-');
                             return (
-                                <Link href={`/property/${slug}`} key={idx} className="block group">
+                                <Link to={`/property/${slug}`} key={idx} className="block group">
                                     <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                                         <div className="relative h-64 overflow-hidden">
                                             <img src={prop.image} alt={prop.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />

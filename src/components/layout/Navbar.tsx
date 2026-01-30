@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Building2, X, Menu } from 'lucide-react';
 import { navigationLinks } from '@/data/content';
 import { Button } from '@/components/ui/Button';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -25,7 +25,7 @@ export function Navbar() {
                         <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg">
                             <Building2 className="w-6 h-6 text-white" />
                         </div>
-                        <Link href="/" className="text-xl font-bold tracking-tight">
+                        <Link to="/" className="text-xl font-bold tracking-tight">
                             MakeMyStay<span className="text-emerald-600">.ai</span>
                         </Link>
                     </div>
@@ -34,13 +34,13 @@ export function Navbar() {
                         {navigationLinks.map((item) => (
                             <Link
                                 key={item}
-                                href={`/#${item.toLowerCase().replace(' ', '-')}`}
+                                to={`/#${item.toLowerCase().replace(' ', '-')}`}
                                 className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
                             >
                                 {item}
                             </Link>
                         ))}
-                        <Link href="/contact-us">
+                        <Link to="/contact-us">
                             <Button variant="dark" className="px-5 py-2.5 text-sm">Contact Us</Button>
                         </Link>
                     </div>
@@ -59,14 +59,14 @@ export function Navbar() {
                         {navigationLinks.map((item) => (
                             <Link
                                 key={item}
-                                href={`/#${item.toLowerCase().replace(' ', '-')}`}
+                                to={`/#${item.toLowerCase().replace(' ', '-')}`}
                                 className="text-base font-medium text-slate-600 py-2"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {item}
                             </Link>
                         ))}
-                        <Link href="/contact-us">
+                        <Link to="/contact-us">
                             <Button variant="dark" className="w-full">Contact Us</Button>
                         </Link>
                     </div>
