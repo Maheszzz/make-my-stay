@@ -1,14 +1,16 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ErrorMessage } from '@/components/ui/ErrorMessage';
 import { MapPin, Bed, Bath, Hash, Check, Star, Share2, Heart, ArrowLeft } from 'lucide-react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { getPropertyBySlug } from '@/data/properties';
+import { useProperty } from '@/hooks';
 
 export default function PropertyDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const property = getPropertyBySlug(id || '');
+    const { property, loading, error, refetch } = useProperty(id || '');
 
     const handleBack = () => {
         if (window.history.length > 2) {
@@ -18,21 +20,43 @@ export default function PropertyDetails() {
         }
     };
 
-    if (!property) {
+    if (loading) {
         return (
             <div className="bg-slate-50 min-h-screen font-sans">
                 <Navbar />
-                <main className="py-32 text-center">
-                    <h1 className="text-3xl font-bold text-slate-900 mb-4">Property Not Found</h1>
-                    <p className="text-slate-500 mb-8">The property you're looking for doesn't exist.</p>
-                    <Link to="/">
-                        <Button>Back to Home</Button>
-                    </Link>
+                <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+                    <LoadingSpinner message="Loading property details..." />
+                </div>
+                <Footer />
+            </div>
+        );
+    }
+
+    if (error || !property) {
+        return (
+            <div className="bg-slate-50 min-h-screen font-sans">
+                <Navbar />
+                <main className="py-32 text-center max-w-7xl mx-auto px-4">
+                    <div className="max-w-md mx-auto">
+                        <ErrorMessage
+                            message={error?.message || "Property Not Found"}
+                            detail={error?.detail || "The property you're looking for doesn't exist or there was an error loading it."}
+                            onRetry={refetch}
+                        />
+                        <div className="mt-8">
+                            <Link to="/properties">
+                                <Button>Back to Listings</Button>
+                            </Link>
+                        </div>
+                    </div>
                 </main>
                 <Footer />
             </div>
         );
     }
+
+    // Determine hero image - use main image if images array is empty
+    const heroImage = (property.images && property.images.length > 0) ? property.images[0] : property.image;
 
     return (
         <div className="bg-slate-50 min-h-screen font-sans">
@@ -42,7 +66,7 @@ export default function PropertyDetails() {
                 {/* Hero Gallery */}
                 <div className="h-[60vh] md:h-[70vh] relative group overflow-hidden">
                     <img
-                        src={property.images[0]}
+                        src={heroImage}
                         alt={property.title}
                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
@@ -101,19 +125,21 @@ export default function PropertyDetails() {
                             <h3 className="text-2xl font-bold text-slate-900 mb-4">About this home</h3>
                             <p className="text-slate-600 leading-relaxed text-lg">{property.description}</p>
 
-                            <div className="mt-8 pt-8 border-t border-slate-100">
-                                <h4 className="text-lg font-bold text-slate-900 mb-6">What this place offers</h4>
-                                <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-                                    {property.features.map((feature, idx) => (
-                                        <div key={idx} className="flex items-center text-slate-600 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-                                            <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mr-4 shrink-0">
-                                                <Check className="w-5 h-5" />
+                            {property.features && property.features.length > 0 && (
+                                <div className="mt-8 pt-8 border-t border-slate-100">
+                                    <h4 className="text-lg font-bold text-slate-900 mb-6">What this place offers</h4>
+                                    <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+                                        {property.features.map((feature, idx) => (
+                                            <div key={idx} className="flex items-center text-slate-600 p-3 rounded-xl hover:bg-slate-50 transition-colors">
+                                                <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mr-4 shrink-0">
+                                                    <Check className="w-5 h-5" />
+                                                </div>
+                                                <span className="font-medium">{feature}</span>
                                             </div>
-                                            <span className="font-medium">{feature}</span>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -130,9 +156,9 @@ export default function PropertyDetails() {
                                     </div>
                                     <div className="flex items-center bg-slate-50 px-3 py-1 rounded-lg">
                                         <Star className="w-4 h-4 text-emerald-500 fill-current mr-1" />
-                                        <span className="font-bold text-slate-900">{property.rating}</span>
+                                        <span className="font-bold text-slate-900">{property.rating || 4.5}</span>
                                         <span className="text-slate-400 mx-1">·</span>
-                                        <span className="text-slate-500 text-sm underline">{property.reviews} reviews</span>
+                                        <span className="text-slate-500 text-sm underline">{property.reviews || 0} reviews</span>
                                     </div>
                                 </div>
 

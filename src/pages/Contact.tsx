@@ -1,9 +1,51 @@
+import { useState, FormEvent } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { contactApi } from '@/lib/api';
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function Contact() {
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        message: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+
+        try {
+            // Submit to backend API
+            await contactApi.submitContactForm(formData);
+
+            // Success!
+            setSuccess(true);
+            setFormData({ name: '', phone: '', email: '', message: '' });
+
+            // Hide success message after 5 seconds
+            setTimeout(() => setSuccess(false), 5000);
+        } catch (err: any) {
+            setError(err.message || 'Failed to send message. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="bg-slate-50 min-h-screen font-sans">
             <Navbar />
@@ -63,30 +105,90 @@ export default function Contact() {
                         <div className="lg:col-span-2">
                             <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-100">
                                 <h2 className="text-3xl font-bold text-slate-900 mb-8">Send us a message</h2>
-                                <form className="space-y-6">
+
+                                {/* Success Message */}
+                                {success && (
+                                    <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-3">
+                                        <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <p className="font-semibold text-emerald-900">Message sent successfully!</p>
+                                            <p className="text-sm text-emerald-700 mt-1">We'll get back to you within 24 hours.</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Error Message */}
+                                {error && (
+                                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+                                        <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <p className="font-semibold text-red-900">Failed to send message</p>
+                                            <p className="text-sm text-red-700 mt-1">{error}</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <label htmlFor="firstName" className="text-sm font-semibold text-slate-700">First name</label>
-                                            <input type="text" id="firstName" className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none" placeholder="John" />
+                                            <label htmlFor="name" className="text-sm font-semibold text-slate-700">Name</label>
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                required
+                                                className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none"
+                                                placeholder="John Doe"
+                                            />
                                         </div>
                                         <div className="space-y-2">
-                                            <label htmlFor="lastName" className="text-sm font-semibold text-slate-700">Last name</label>
-                                            <input type="text" id="lastName" className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none" placeholder="Doe" />
+                                            <label htmlFor="phone" className="text-sm font-semibold text-slate-700">Phone number</label>
+                                            <input
+                                                type="tel"
+                                                id="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                required
+                                                className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none"
+                                                placeholder="+91 98765 43210"
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
                                         <label htmlFor="email" className="text-sm font-semibold text-slate-700">Email</label>
-                                        <input type="email" id="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none" placeholder="john@example.com" />
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none"
+                                            placeholder="john@example.com"
+                                        />
                                     </div>
 
                                     <div className="space-y-2">
                                         <label htmlFor="message" className="text-sm font-semibold text-slate-700">Message</label>
-                                        <textarea id="message" rows={6} className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none resize-none" placeholder="How can we help you today?"></textarea>
+                                        <textarea
+                                            id="message"
+                                            rows={6}
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all outline-none resize-none"
+                                            placeholder="How can we help you today?"
+                                        ></textarea>
                                     </div>
 
-                                    <Button className="w-full py-4 text-lg rounded-xl flex items-center justify-center gap-2">
-                                        Send Message <Send className="w-5 h-5" />
+                                    <Button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full py-4 text-lg rounded-xl flex items-center justify-center gap-2"
+                                    >
+                                        {loading ? 'Sending...' : 'Send Message'}
+                                        <Send className="w-5 h-5" />
                                     </Button>
                                 </form>
                             </div>

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Hash, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { properties } from '@/data/properties';
+import { useProperties } from '@/hooks';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface PropertyGridProps {
     category: 'buy' | 'rent';
@@ -9,12 +10,28 @@ interface PropertyGridProps {
 }
 
 export function PropertyGrid({ category, searchQuery }: PropertyGridProps) {
+    const { properties, loading, error } = useProperties();
+
     const filteredProperties = properties.filter(prop => {
         const matchesCategory = prop.category === category;
         const matchesSearch = prop.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             prop.location.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;
-    });
+    }).slice(0, 4); // Limit to 4 for the home page
+
+    if (loading) {
+        return (
+            <section className="py-20 bg-slate-50">
+                <div className="flex justify-center">
+                    <LoadingSpinner message="Loading latest listings..." />
+                </div>
+            </section>
+        );
+    }
+
+    if (error) {
+        return null; // Gracefully hide if error on home page
+    }
 
     return (
         <section className="py-20 bg-slate-50">
@@ -42,6 +59,7 @@ export function PropertyGrid({ category, searchQuery }: PropertyGridProps) {
                                             <div className="absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
                                                 {prop.tag}
                                             </div>
+                                            {/* Removed hardcoded Rent/Sale badge as requested */}
                                         </div>
 
                                         <div className="p-6 flex-1 flex flex-col">

@@ -1,3 +1,8 @@
+/**
+ * Property types and mock/fallback data
+ * This data is used as a fallback when the API is unavailable
+ */
+
 export interface Property {
     id: string;
     title: string;
