@@ -1,10 +1,10 @@
 import {
-    Building2, Users, TrendingUp, BarChart3, ShieldCheck, Zap,
-    UserCheck, CheckCircle2, Star, Activity
+    Users, TrendingUp, BarChart3, ShieldCheck, Zap,
+    UserCheck, Star, Activity
 } from 'lucide-react';
 
 export const navigationLinks = [
-    'Home', 'Problem', 'Solution', 'Services', 'About Us'
+    'Home', 'Services', 'About Us', 'Problem', 'Solution'
 ];
 
 export const heroStats = [

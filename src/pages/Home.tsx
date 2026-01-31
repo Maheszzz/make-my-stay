@@ -20,12 +20,14 @@ export default function Home() {
         <>
             <Navbar />
             <main className="min-h-screen bg-white">
-                <Hero
-                    category={category}
-                    setCategory={setCategory}
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                />
+                <section id="home">
+                    <Hero
+                        category={category}
+                        setCategory={setCategory}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                    />
+                </section>
 
                 {/* Services / What We Offer */}
                 <section id="services" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

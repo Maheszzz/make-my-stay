@@ -1,37 +1,38 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
-import { MapPin, Bed, Bath, Hash, Check, Star, Share2, Heart } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { MapPin, Bed, Bath, Hash, Check, Star, Share2, Heart, ArrowLeft } from 'lucide-react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { getPropertyBySlug } from '@/data/properties';
 
 export default function PropertyDetails() {
     const { id } = useParams();
+    const navigate = useNavigate();
+    const property = getPropertyBySlug(id || '');
 
-    // Mock Data based on params (In real app, fetch from DB or use ID to find)
-    // For now, we use static data but you could use the ID to fetch specific data
-    const property = {
-        title: "Sunset Boulevard Penthouse",
-        location: "Los Angeles, CA",
-        price: "₹12.5 Cr", // Updated to INR as per recent changes
-        rating: 4.9,
-        reviews: 128,
-        description: "Experience the pinnacle of luxury living in this breathtaking penthouse on Sunset Boulevard. Featuring panoramic views of the city skyline, this residence offers an unmatched blend of sophistication and comfort. The open-concept living area is bathed in natural light, seamless flowing into a state-of-the-art kitchen equipped with top-tier appliances.",
-        features: [
-            "Panoramic City Views", "Private Infinity Pool", "Smart Home Automation",
-            "24/7 Concierge", "Private Elevator Access", "Chef's Kitchen",
-            "Home Theater", "Wine Cellar"
-        ],
-        images: [
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=2000",
-            "https://images.unsplash.com/photo-1600596542815-2495db9dc2c3?auto=format&fit=crop&q=80&w=1000",
-            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1000",
-        ],
-        host: {
-            name: "Sarah Jenkins",
-            role: "Superhost",
-            image: "https://randomuser.me/api/portraits/women/44.jpg"
+    const handleBack = () => {
+        if (window.history.length > 2) {
+            navigate(-1);
+        } else {
+            navigate('/properties');
         }
     };
+
+    if (!property) {
+        return (
+            <div className="bg-slate-50 min-h-screen font-sans">
+                <Navbar />
+                <main className="py-32 text-center">
+                    <h1 className="text-3xl font-bold text-slate-900 mb-4">Property Not Found</h1>
+                    <p className="text-slate-500 mb-8">The property you're looking for doesn't exist.</p>
+                    <Link to="/">
+                        <Button>Back to Home</Button>
+                    </Link>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
 
     return (
         <div className="bg-slate-50 min-h-screen font-sans">
@@ -47,17 +48,25 @@ export default function PropertyDetails() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
+                    {/* Back Button */}
+                    <button
+                        onClick={handleBack}
+                        className="absolute top-24 left-4 z-20 p-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white hover:bg-white/40 hover:scale-110 transition-all shadow-lg cursor-pointer"
+                    >
+                        <ArrowLeft className="w-6 h-6" />
+                    </button>
+
                     <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 max-w-7xl mx-auto">
                         <div className="animate-fade-in-up">
                             <div className="flex items-center space-x-2 text-white/90 mb-2 font-medium">
-                                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs uppercase tracking-wider font-bold">Featured</span>
+                                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs uppercase tracking-wider font-bold">{property.tag}</span>
                                 <span className="flex items-center"><MapPin className="w-4 h-4 mr-1" /> {property.location}</span>
                             </div>
                             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight shadow-md">{property.title}</h1>
                             <div className="flex items-center text-white/90 space-x-6">
-                                <div className="flex items-center"><Bed className="w-5 h-5 mr-2" /> 4 Beds</div>
-                                <div className="flex items-center"><Bath className="w-5 h-5 mr-2" /> 4 Baths</div>
-                                <div className="flex items-center"><Hash className="w-5 h-5 mr-2" /> 3,500 sqft</div>
+                                <div className="flex items-center"><Bed className="w-5 h-5 mr-2" /> {property.beds} Beds</div>
+                                <div className="flex items-center"><Bath className="w-5 h-5 mr-2" /> {property.baths} Baths</div>
+                                <div className="flex items-center"><Hash className="w-5 h-5 mr-2" /> {property.sqft} sqft</div>
                             </div>
                         </div>
                     </div>
@@ -153,11 +162,11 @@ export default function PropertyDetails() {
                                 <div className="space-y-3 pt-6 border-t border-slate-100 text-sm">
                                     <div className="flex justify-between text-slate-600">
                                         <span className="underline">Estimate EMI</span>
-                                        <span>$24,000 / month</span>
+                                        <span>₹20L / month</span>
                                     </div>
                                     <div className="flex justify-between text-slate-600">
                                         <span className="underline">Service fee</span>
-                                        <span>$1,200</span>
+                                        <span>₹1L</span>
                                     </div>
                                 </div>
                             </div>
